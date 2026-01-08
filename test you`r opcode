@@ -23,13 +23,12 @@ local function testOpcode(name, testFunc, validator)
     
     if not success then
         TestSuite.failed = TestSuite.failed + 1
-        print(string.format("❌ [%s] - FAILED: %s", name, tostring(result)))
-        print("   ⚠️  OPCODE STRUCTURE NO VALID")
+        print(string.format(" [%s] - FAILED: %s", name, tostring(result)))
+        print("     OPCODE STRUCTURE NO VALID")
         TestSuite.results[name] = {status = "FAIL", error = result}
         return false
     end
     
-    -- Проверка валидности результата
     local isValid, validationError = true, nil
     if validator then
         isValid, validationError = pcall(function()
@@ -39,14 +38,14 @@ local function testOpcode(name, testFunc, validator)
     
     if not isValid or validationError == false then
         TestSuite.failed = TestSuite.failed + 1
-        print(string.format("❌ [%s] - INVALID RESULT", name))
-        print("   ⚠️  OPCODE STRUCTURE NO VALID")
+        print(string.format(" [%s] - INVALID RESULT", name))
+        print("     OPCODE STRUCTURE NO VALID")
         TestSuite.results[name] = {status = "INVALID", result = result}
         return false
     end
     
     TestSuite.passed = TestSuite.passed + 1
-    print(string.format("✅ [%s] - WORK (true)", name))
+    print(string.format(" [%s] - WORK (true)", name))
     TestSuite.results[name] = {status = "PASS", result = result}
     return true
 end
